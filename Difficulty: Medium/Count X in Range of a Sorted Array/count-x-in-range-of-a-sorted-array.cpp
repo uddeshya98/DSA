@@ -1,18 +1,37 @@
 class Solution {
-  public:
+public:
     vector<int> countXInRange(vector<int>& arr, vector<vector<int>>& queries) {
-        vector<int> ans;
-        int n = arr.size();
-        
-        for (auto &q : queries) {
-            int l = q[0], r = q[1], x = q[2];
-            
-            int left = lower_bound(arr.begin(), arr.end(), x) - arr.begin();
-            int right = upper_bound(arr.begin(), arr.end(), x) - arr.begin();
-            
-            int count = max(0, min(right, r + 1) - max(left, l));
-            ans.push_back(count);
+     
+        unordered_map<int, vector<int>> posMap;
+        for (int i = 0; i < arr.size(); i++) {
+            posMap[arr[i]].push_back(i);
         }
-        return ans;
+
+        vector<int> results;
+        results.reserve(queries.size());
+
+        for (const auto& query : queries) {
+            int L = query[0];
+            int R = query[1];
+            int X = query[2];
+
+
+            if (posMap.find(X) == posMap.end()) {
+                results.push_back(0);
+                continue;
+            }
+
+            const vector<int>& indices = posMap[X];
+
+         
+            auto it1 = lower_bound(indices.begin(), indices.end(), L);
+        
+            auto it2 = upper_bound(indices.begin(), indices.end(), R);
+
+         
+            results.push_back(distance(it1, it2));
+        }
+
+        return results;
     }
 };

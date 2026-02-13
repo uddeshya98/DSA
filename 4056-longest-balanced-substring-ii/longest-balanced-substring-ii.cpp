@@ -23,8 +23,7 @@ public:
                 if (s[i] != c1 && s[i] != c2) {
                     mp.clear();
                     mp[0] = i; 
-                    count1 = 0; 
-                    count2 = 0;
+                    count1 = 0; count2 = 0;
                 } else {
                     if (s[i] == c1) count1++;
                     if (s[i] == c2) count2++;

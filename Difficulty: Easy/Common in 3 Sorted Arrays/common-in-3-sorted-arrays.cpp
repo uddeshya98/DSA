@@ -1,36 +1,20 @@
 class Solution {
 public:
-    vector<int> commonElements(vector<int> &A, vector<int> &B, vector<int> &C) {
-
-        int n1 = A.size(), n2 = B.size(), n3 = C.size();
+    vector<int> commonElements(vector<int> &a, vector<int> &b, vector<int> &c) {
         int i = 0, j = 0, k = 0;
-        vector<int> ans;
+        vector<int> res;
 
-        while (i < n1 && j < n2 && k < n3) {
-
-           
-            if (A[i] == B[j] && B[j] == C[k]) {
-                ans.push_back(A[i]);
-
-                int val = A[i];
-                
-                while (i < n1 && A[i] == val) i++;
-                while (j < n2 && B[j] == val) j++;
-                while (k < n3 && C[k] == val) k++;
+        while (i < a.size() && j < b.size() && k < c.size()) {
+            if (a[i] == b[j] && b[j] == c[k]) {
+                if (res.empty() || res.back() != a[i])
+                    res.push_back(a[i]);
+                i++; j++; k++;
             }
-
-            else if (A[i] < B[j]) {
-                i++;
-            }
-            else if (B[j] < C[k]) {
-                j++;
-            }
-            else {
-                k++;
-            }
+            else if (a[i] < b[j]) i++;
+            else if (b[j] < c[k]) j++;
+            else k++;
         }
 
-        if(ans.empty()) return {-1};
-        return ans;
+        return res;
     }
 };
